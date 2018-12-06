@@ -36,11 +36,10 @@ DYNAMIC=libwiringPiDev.so.$(VERSION)
 
 #DEBUG	= -g -O0
 DEBUG	= -O2
-CC	= gcc
-INCLUDE	= -I.
+CC	?= gcc
+INCLUDE	= -I../wiringPi
 DEFS	= -D_GNU_SOURCE
-CFLAGS	= $(DEBUG) $(DEFS) -Wformat=2 -Wall -Winline $(INCLUDE) -pipe -fPIC
-
+CFLAGS	+= $(DEBUG) $(DEFS) -Wformat=2 -Wall -Winline $(INCLUDE) -pipe -fPIC
 LIBS    =
 
 ###############################################################################

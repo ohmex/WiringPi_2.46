@@ -32,11 +32,11 @@ endif
 
 #DEBUG	= -g -O0
 DEBUG	= -O2
-CC	= gcc
-INCLUDE	= -I$(DESTDIR)$(PREFIX)/include
-CFLAGS	= $(DEBUG) -Wall -Wextra $(INCLUDE) -Winline -pipe
+CC	?= gcc
+INCLUDE	= -I../wiringPi -I../devLib
+CFLAGS	+= $(DEBUG) -Wall -Wextra $(INCLUDE) -Winline -pipe
 
-LDFLAGS	= -L$(DESTDIR)$(PREFIX)/lib
+LDFLAGS	= -L../wiringPi -L../devLib
 LIBS    = -lwiringPi -lwiringPiDev -lpthread -lrt -lm -lcrypt
 
 # May not need to  alter anything below this line
@@ -52,8 +52,12 @@ version.h:	../VERSION
 	$Q echo Need to run newVersion above.
 
 gpio:	$(OBJ)
-	$Q echo [Link]
+	$Q echo "[Link (Dynamic)]"
 	$Q $(CC) -o $@ $(OBJ) $(LDFLAGS) $(LIBS)
+
+gpio-static: $(OBJ)
+	$Q echo "[Link (Static)]"
+	$Q $(CC) -static -o gpio $(OBJ) ../wiringPi/libwiringPi.a ../devLib/libwiringPiDev.a -lpthread
 
 .c.o:
 	$Q echo [Compile] $<
