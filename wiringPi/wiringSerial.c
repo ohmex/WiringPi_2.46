@@ -75,10 +75,19 @@ int serialOpen (const char *device, const int baud)
     case 1152000:	myBaud = B1152000 ; break ;
     case 1500000:	myBaud = B1500000 ; break ;
     case 2000000:	myBaud = B2000000 ; break ;
-    case 2500000:	myBaud = B2500000 ; break ;
-    case 3000000:	myBaud = B3000000 ; break ;
-    case 3500000:	myBaud = B3500000 ; break ;
-    case 4000000:	myBaud = B4000000 ; break ;
+#if defined(B2500000)
+     case 2500000:	myBaud = B2500000 ; break ;
+#endif
+#if defined(B3000000)
+     case 3000000:	myBaud = B3000000 ; break ;
+#endif
+#if defined(B3500000)
+     case 3500000:	myBaud = B3500000 ; break ;
+#endif
+#if defined(B4000000)
+     case 4000000:	myBaud = B4000000 ; break ;
+#endif
+
 
     default:
       return -2 ;
